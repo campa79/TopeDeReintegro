@@ -3,17 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Tope de Reintegro</title>
+    <title>Calculadora Tope de Reintegro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Minimal Grays with Subtle Teal Accent -->
-    <!-- Application Structure Plan: The application is a single-page calculator focused on a specific financial calculation. It has a central input form for two numerical values and a button to trigger the calculation. The result is displayed clearly below the button. This straightforward structure is chosen for its simplicity and directness, allowing the user to perform the calculation quickly without distractions. -->
-    <!-- Visualization & Content Choices: 
-        - Report Info: Two numerical inputs, a calculation, and a result -> Goal: Calculate/Inform -> Viz/Presentation: Input fields, button, text display for result -> Interaction: User input, button click -> Justification: Direct implementation of the requested calculator functionality. The layout is clean and intuitive for numerical entry and result display. -> Library/Method: HTML/CSS/JS.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -80,10 +74,10 @@
         <!-- Calculator Section -->
         <section id="calculator-section" class="w-full max-w-md calculator-card p-6 md:p-10">
             <h1 class="text-3xl font-bold tracking-tight text-center mb-8 text-gray-50">
-                Calculadora de Tope de Reintegro
+                Calculadora Tope de Reintegro
             </h1>
             <p class="text-center text-gray-300 mb-8">
-                Ingresa el tope de reintegro y el porcentaje de descuento para calcular el tope de reintegro.
+                Ingresá el tope de reintegro y el porcentaje de descuento para calcular el tope de reintegro:
             </p>
 
             <div class="space-y-6">
@@ -111,7 +105,7 @@
     
     <footer class="bg-gray-950 text-white mt-16">
         <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-sm">
-            <p>&copy; 2025 Calculadora de Reintegro. Todos los derechos reservados.</p>
+            <p>&copy; 2025 Calculadora de Reintegro.</p>
         </div>
     </footer>
 
@@ -147,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const porcentajeDecimal = porcentaje / 100;
         const resultado = tope / porcentajeDecimal;
 
-        resultDisplay.textContent = `El monto total de consumo para aprovechar el descuento es de: $${resultado.toFixed(2)}`;
+        resultDisplay.textContent = `El monto total para aprovechar el descuento es de: $${resultado.toFixed(2)}`;
         resultDisplay.classList.remove('hidden');
     });
 });
