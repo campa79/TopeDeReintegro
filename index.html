@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Tope de Reintegro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Minimal Grays with Subtle Teal Accent -->
+    <!-- Application Structure Plan: The application is a single-page calculator focused on a specific financial calculation. It has a central input form for two numerical values and a button to trigger the calculation. The result is displayed clearly below the button. This straightforward structure is chosen for its simplicity and directness, allowing the user to perform the calculation quickly without distractions. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Two numerical inputs, a calculation, and a result -> Goal: Calculate/Inform -> Viz/Presentation: Input fields, button, text display for result -> Interaction: User input, button click -> Justification: Direct implementation of the requested calculator functionality. The layout is clean and intuitive for numerical entry and result display. -> Library/Method: HTML/CSS/JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .calculator-card {
+            background-color: #1f2937; /* gray-800 */
+            border-radius: 0.75rem;
+            border: 1px solid #4b5563; /* gray-600 */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .input-field {
+            background-color: #374151; /* gray-700 */
+            border: 1px solid #4b5563; /* gray-600 */
+            color: #f3f4f6; /* gray-100 */
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            width: 100%;
+            transition: border-color 0.2s ease-in-out;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #2dd4bf; /* teal-400 */
+        }
+        .calculate-button {
+            background-color: #0d9488; /* teal-600 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .calculate-button:hover {
+            background-color: #0f766e; /* teal-700 */
+        }
+        .result-display {
+            background-color: #111827; /* gray-900 */
+            border: 1px solid #374151; /* gray-700 */
+            color: #2dd4bf; /* teal-400 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-gray-800 sticky top-0 z-50 border-b border-gray-700">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#hero" class="text-xl font-bold text-gray-50">📊 Calculadora de Reintegro</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex items-center justify-center">
+
+        <!-- Calculator Section -->
+        <section id="calculator-section" class="w-full max-w-md calculator-card p-6 md:p-10">
+            <h1 class="text-3xl font-bold tracking-tight text-center mb-8 text-gray-50">
+                Calculadora de Tope de Reintegro
+            </h1>
+            <p class="text-center text-gray-300 mb-8">
+                Ingresa el tope de reintegro y el porcentaje de descuento para calcular el tope de reintegro.
+            </p>
+
+            <div class="space-y-6">
+                <div>
+                    <label for="topeReintegro" class="block text-sm font-medium text-gray-300 mb-2">Tope de Reintegro (Pesos ARS)</label>
+                    <input type="number" id="topeReintegro" class="input-field" placeholder="Ej: 10000">
+                </div>
+                <div>
+                    <label for="porcentajeDescuento" class="block text-sm font-medium text-gray-300 mb-2">Porcentaje de Descuento (%)</label>
+                    <input type="number" id="porcentajeDescuento" class="input-field" placeholder="Ej: 35">
+                </div>
+                <button id="calculateBtn" class="calculate-button w-full">
+                    CALCULAR DESCUENTO
+                </button>
+                <div id="result" class="result-display mt-6 hidden">
+                    <!-- El resultado se mostrará aquí -->
+                </div>
+                <div id="error-message" class="text-red-400 text-center mt-4 hidden">
+                    <!-- Mensajes de error se mostrarán aquí -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-gray-950 text-white mt-16">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2025 Calculadora de Reintegro. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const topeReintegroInput = document.getElementById('topeReintegro');
+    const porcentajeDescuentoInput = document.getElementById('porcentajeDescuento');
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultDisplay = document.getElementById('result');
+    const errorMessage = document.getElementById('error-message');
+
+    calculateBtn.addEventListener('click', function() {
+        const tope = parseFloat(topeReintegroInput.value);
+        const porcentaje = parseFloat(porcentajeDescuentoInput.value);
+
+        // Clear previous messages
+        resultDisplay.classList.add('hidden');
+        errorMessage.classList.add('hidden');
+        errorMessage.textContent = '';
+
+        if (isNaN(tope) || isNaN(porcentaje)) {
+            errorMessage.textContent = 'Por favor, ingresa números válidos en ambos campos.';
+            errorMessage.classList.remove('hidden');
+            return;
+        }
+
+        if (porcentaje <= 0 || porcentaje > 100) {
+            errorMessage.textContent = 'El porcentaje de descuento debe ser un número entre 0.01 y 100.';
+            errorMessage.classList.remove('hidden');
+            return;
+        }
+
+        const porcentajeDecimal = porcentaje / 100;
+        const resultado = tope / porcentajeDecimal;
+
+        resultDisplay.textContent = `El monto total de consumo para aprovechar el descuento es de: $${resultado.toFixed(2)}`;
+        resultDisplay.classList.remove('hidden');
+    });
+});
+</script>
+
+</body>
+</html>
